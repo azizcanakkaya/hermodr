@@ -1,0 +1,178 @@
+{
+    "stream1":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream2":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream3":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream4":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream5":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream6":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream7":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream8":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream9":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream10":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream11":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream12":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream13":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream14":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream15":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    },
+    "stream16":
+    {
+        "destination_mac": "AA:AA:AA:AA:AA:AA",
+        "source-mac": "BB:BB:BB:BB:BB:BB",
+        "destination_ip": "192.168.1.1",
+        "source_ip": "192.168.1.2",
+        "mtu": 1500,
+        "vlan": 1,
+        "qos": 0,
+        "cos": 0
+    }
+}

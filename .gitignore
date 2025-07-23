@@ -1,0 +1,3 @@
+# ignore dev env directories
+/build/
+/.vscode/
