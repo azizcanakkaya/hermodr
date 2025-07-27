@@ -290,7 +290,10 @@ void display_help(void) {
            "  -q, --qos       DSCP value (default: 0)\n"
            "  -c, --cos       CoS value (default: 0)\n"
            "  -s, --stream    Config file path to send in stream (optional)\n"
-           "  -h, --help      Show this help and exit\n");
+           "  -h, --help      Show this help and exit\n"
+           "Example single stream usage: hermodr --dst-mac AA:AA:AA:AA:AA:AA --src-mac BB:BB:BB:BB:BB:BB "
+           "--dst-ip 1.1.1.1 --src-ip 0.0.0.0 --iface eth0 --duration 10 --mtu 1500 --rate 1.0 --vlan 10 --qos 0 --cos 0\n"
+           "Example multiple stream: hermodr --iface eth0 --duration 10 --rate 1.0 --stream <json_file_path>\n");
 }
 
 int main(int argc, char **argv) {
@@ -304,15 +307,15 @@ int main(int argc, char **argv) {
         {"dst-mac", required_argument, 0, 'm'},
         {"src-mac", required_argument, 0, 'M'},
         {"dst-ip",  required_argument, 0, 'i'},
-        {"src-ip",  optional_argument, 0, 'I'},
+        {"src-ip",  required_argument, 0, 'I'},
         {"iface",   required_argument, 0, 'f'},
-        {"duration",optional_argument, 0, 'd'},
-        {"mtu",     optional_argument, 0, 'u'},
-        {"rate",    optional_argument, 0, 'r'},
-        {"vlan",    optional_argument, 0, 'b'},
-        {"qos",     optional_argument, 0, 'q'},
-        {"cos",     optional_argument, 0, 'c'},
-        {"stream",  optional_argument, 0, 's'},
+        {"duration",required_argument, 0, 'd'},
+        {"mtu",     required_argument, 0, 'u'},
+        {"rate",    required_argument, 0, 'r'},
+        {"vlan",    required_argument, 0, 'b'},
+        {"qos",     required_argument, 0, 'q'},
+        {"cos",     required_argument, 0, 'c'},
+        {"stream",  required_argument, 0, 's'},
         {"help",    no_argument,       0, 'h'},
         {0, 0, 0, 0}
     };
@@ -331,11 +334,7 @@ int main(int argc, char **argv) {
             case 'b': vlan_id = atoi(optarg); break;
             case 'q': dscp = atoi(optarg); break;
             case 'c': cos = atoi(optarg); break;
-            case 's': 
-                if (optind < argc) {
-                    stream_config = argv[optind];
-                }
-                break;
+            case 's': stream_config = optarg; break;
             case 'h': display_help(); exit(EXIT_SUCCESS);
             default: display_help(); exit(EXIT_FAILURE);
         }
@@ -383,7 +382,7 @@ int main(int argc, char **argv) {
     }
     memcpy(src_mac, ifr.ifr_hwaddr.sa_data, 6);
 
-    if (!src_mac_str) {
+    if (src_mac_str) {
         if (sscanf(src_mac_str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
                    &src_mac[0], &src_mac[1], &src_mac[2],
                    &src_mac[3], &src_mac[4], &src_mac[5]) != 6) {
