@@ -81,7 +81,7 @@ void parse_stream(const char *stream_name, cJSON *stream, struct stream_package*
     if (sscanf(dst_mac_str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
                &dst_mac[0], &dst_mac[1], &dst_mac[2],
                &dst_mac[3], &dst_mac[4], &dst_mac[5]) != 6) {
-        fprintf(stderr, "[%s] Invalid destination MAC format.\n", stream_name);
+        fprintf(stderr, "[WARN] : [%s] Invalid destination MAC format from the stream config.\n", stream_name);
         stream_pack->packet = NULL;
         stream_pack->size = 0;
         return;
@@ -90,7 +90,7 @@ void parse_stream(const char *stream_name, cJSON *stream, struct stream_package*
     if (sscanf(src_mac_str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
                &src_mac[0], &src_mac[1], &src_mac[2],
                &src_mac[3], &src_mac[4], &src_mac[5]) != 6) {
-        fprintf(stderr, "[%s] Invalid source MAC format.\n", stream_name);
+        fprintf(stderr, "[WARN] :[%s] Invalid source MAC format from the stream config.\n", stream_name);
         stream_pack->packet = NULL;
         stream_pack->size = 0;
         return;
@@ -98,7 +98,7 @@ void parse_stream(const char *stream_name, cJSON *stream, struct stream_package*
 
     int min_required = ETH_HDR_LEN + VLAN_HLEN + IP_HDR_LEN + UDP_HDR_LEN + 1;
     if (mtu < min_required) {
-        fprintf(stderr, "[%s] Skipped: MTU too small (%d < %d required)\n", stream_name, mtu, min_required);
+        fprintf(stderr, "[WARN] : [%s] Skipped: MTU too small from the stream config (%d < %d required)\n", stream_name, mtu, min_required);
         stream_pack->packet = NULL;
         stream_pack->size = 0;
         return;
@@ -115,7 +115,7 @@ void parse_stream(const char *stream_name, cJSON *stream, struct stream_package*
     int pkt_len = build_packet(stream_pack->packet, dst_mac, src_mac, vlan_id, cos, src_ip, dst_ip, dscp, payload_len);
     stream_pack->size = pkt_len;
 
-    printf("[%s] %s -> %s | %s -> %s | MTU: %d | VLAN: %d | QoS: %d | CoS: %d\n",
+    fprintf(stderr, "[INFO] :[%s] %s -> %s | %s -> %s | MTU: %d | VLAN: %d | QoS: %d | CoS: %d\n",
            stream_name, src_mac_str, dst_mac_str, src_ip_str, dst_ip_str,
            mtu, vlan_id, dscp, cos);
 }
@@ -143,7 +143,7 @@ void send_stream(const char* iface, const int duration, const float rate_gbps, c
     cJSON *root = cJSON_Parse(data);
     free(data);
     if (!root) {
-        fprintf(stderr, "JSON Parse Error\n");
+        fprintf(stderr, "[ERROR] : JSON Parse Error\n");
         exit(EXIT_FAILURE);
     }
 
@@ -158,7 +158,7 @@ void send_stream(const char* iface, const int duration, const float rate_gbps, c
     cJSON_Delete(root);
 
     if (stream_count == 0) {
-        fprintf(stderr, "No valid stream packets loaded.\n");
+        fprintf(stderr, "[ERROR] : No valid stream packets loaded.\n");
         return;
     }
 
@@ -186,7 +186,7 @@ void send_stream(const char* iface, const int duration, const float rate_gbps, c
     long long bits_sent = 0;
     int stream_idx = 0;
 
-    printf("Sending in round-robin (%d streams) for %d seconds at %.2f Gbps...\n", stream_count, duration, rate_gbps);
+    fprintf(stderr, "[INFO] : Sending in round-robin (%d streams) for %d seconds at %.2f Gbps...\n", stream_count, duration, rate_gbps);
 
     while (1) {
         // Check if time is up
@@ -342,7 +342,7 @@ int main(int argc, char **argv) {
 
     if (stream_config) {
         if (!iface) {
-            fprintf(stderr, "Missing required argument: --iface\n");
+            fprintf(stderr, "[ERROR] : Missing required argument: --iface\n");
             display_help();
             return EXIT_FAILURE;
         }
@@ -352,7 +352,7 @@ int main(int argc, char **argv) {
 
 
     if (!dst_mac_str || !dst_ip_str || !iface) {
-        fprintf(stderr, "Missing required arguments.\n");
+        fprintf(stderr, "[ERROR] : Missing required arguments.\n");
         display_help();
         return EXIT_FAILURE;
     }
@@ -361,14 +361,14 @@ int main(int argc, char **argv) {
     if (sscanf(dst_mac_str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
                &dst_mac[0], &dst_mac[1], &dst_mac[2],
                &dst_mac[3], &dst_mac[4], &dst_mac[5]) != 6) {
-        fprintf(stderr, "Invalid destination MAC format\n");
+        fprintf(stderr, "[ERROR] : Invalid destination MAC format\n");
         return EXIT_FAILURE;
     }
 
     in_addr_t src_ip = inet_addr(src_ip_str);
     in_addr_t dst_ip = inet_addr(dst_ip_str);
     if (src_ip == INADDR_NONE || dst_ip == INADDR_NONE) {
-        fprintf(stderr, "Invalid IP address\n");
+        fprintf(stderr, "[ERROR] : Invalid IP address\n");
         return EXIT_FAILURE;
     }
 
@@ -386,7 +386,7 @@ int main(int argc, char **argv) {
         if (sscanf(src_mac_str, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
                    &src_mac[0], &src_mac[1], &src_mac[2],
                    &src_mac[3], &src_mac[4], &src_mac[5]) != 6) {
-            fprintf(stderr, "Invalid source MAC format\n");
+            fprintf(stderr, "[ERROR] : Invalid source MAC format\n");
             return EXIT_FAILURE;
         }
     }
@@ -402,7 +402,7 @@ int main(int argc, char **argv) {
     }
 
     if (mtu < ETH_HDR_LEN + VLAN_HLEN + IP_HDR_LEN + UDP_HDR_LEN + 1) {
-        fprintf(stderr, "MTU too small for headers\n");
+        fprintf(stderr, "[ERROR] : MTU too small for headers\n");
         return EXIT_FAILURE;
     }
 
@@ -423,7 +423,7 @@ int main(int argc, char **argv) {
     struct timespec next_send;
     clock_gettime(CLOCK_MONOTONIC, &next_send);
 
-    printf("Sending %ld packets (~%.2f Mbps) on interface %s\n",
+    fprintf(stderr, "[INFO] : Sending %ld packets (~%.2f Mbps) on interface %s\n",
            total_packets, (double)(mtu * 8 * rate_pps) / 1e6, iface);
 
     for (long i = 0; i < total_packets; i++) {
